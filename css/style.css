@@ -59,6 +59,7 @@ body{
 }
 
 .carousel-bottom img{
+  cursor: pointer;
   height: 100%;
   width: calc(100% / 5);
 }

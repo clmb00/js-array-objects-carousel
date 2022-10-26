@@ -25,7 +25,14 @@ const states = [
 const elemMainImage = document.createElement('img');
 const carouselTop = document.querySelector('.carousel-top');
 const carouselBottom = document.querySelector('.carousel-bottom');
-const mainImage = (index) => elemMainImage.src = states[index].image;
+let counter = 1;
+
+const centralImage = (index) => {
+  carouselTop.innerHTML = '';
+  elemMainImage.src = states[index].image;
+  carouselTop.append(elemMainImage);
+}
+
 const imageDescription = (index) => {
   const template = `
     <div class="title-descr">
@@ -37,16 +44,44 @@ const imageDescription = (index) => {
 
 loadPage();
 
+document.getElementById('btn-left').addEventListener('click', slide);
+document.getElementById('btn-right').addEventListener('click', slide);
+
 function loadPage(){
-  mainImage(1);
-  carouselTop.append(elemMainImage);
-  carouselTop.innerHTML += imageDescription(1)
+  changeCentralImage();
   states.forEach(createSlider);
+}
+
+function changeCentralImage(){
+  centralImage(counter);
+  carouselTop.innerHTML += imageDescription(counter)
 }
 
 function createSlider(elem, index){
   const thumb = document.createElement('img');
   (index == 1) ? thumb.classList = 'active' : thumb.classList = 'not-active';
   thumb.src = elem.image;
+  thumb.id = index;
+  thumb.addEventListener('click', function(){
+    changeImage(this.id)
+  });
   carouselBottom.append(thumb);
+}
+
+function slide(){
+  let newCounter = counter;
+  if (this.id == 'btn-right') {
+    if (++newCounter==5) newCounter=0;
+  } else {
+    if (--newCounter==-1) newCounter=4;
+  }
+  changeImage(newCounter);
+}
+
+function changeImage(newCounter){
+  const thumbs = document.querySelectorAll('.carousel-bottom img');
+  thumbs[counter].classList.replace('active', 'not-active');
+  counter = newCounter;
+  thumbs[newCounter].classList.replace('not-active', 'active');
+  changeCentralImage();
 }
