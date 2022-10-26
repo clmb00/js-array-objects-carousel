@@ -67,7 +67,8 @@ document.getElementById('play').addEventListener('click', function(){
   autoplay(direction);
 });
 document.getElementById('random').addEventListener('click', function(){
-  slide('right');
+  const rnd = Math.floor(Math.random()*5);
+  changeImage(rnd);
 });
 
 function loadPage(){
@@ -87,7 +88,7 @@ function createSlider(elem, index){
   thumb.src = elem.image;
   thumb.id = index;
   thumb.addEventListener('click', function(){
-    changeImage(this.id)
+    changeImage(this.id);
   });
   carouselBottom.append(thumb);
 }
