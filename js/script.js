@@ -25,7 +25,10 @@ const states = [
 const elemMainImage = document.createElement('img');
 const carouselTop = document.querySelector('.carousel-top');
 const carouselBottom = document.querySelector('.carousel-bottom');
+const timeAutoplay = 2000;
 let counter = 1;
+let newCounter;
+let cicle;
 
 const centralImage = (index) => {
   carouselTop.innerHTML = '';
@@ -43,9 +46,14 @@ const imageDescription = (index) => {
 }
 
 loadPage();
+autoplay();
 
-document.getElementById('btn-left').addEventListener('click', slide);
-document.getElementById('btn-right').addEventListener('click', slide);
+document.getElementById('btn-left').addEventListener('click', function(){
+  slide('left');
+});
+document.getElementById('btn-right').addEventListener('click', function(){
+  slide('right');
+});
 
 function loadPage(){
   changeCentralImage();
@@ -68,9 +76,9 @@ function createSlider(elem, index){
   carouselBottom.append(thumb);
 }
 
-function slide(){
-  let newCounter = counter;
-  if (this.id == 'btn-right') {
+function slide(direction){
+  newCounter = counter;
+  if (direction == 'right') {
     if (++newCounter==5) newCounter=0;
   } else {
     if (--newCounter==-1) newCounter=4;
@@ -84,4 +92,10 @@ function changeImage(newCounter){
   counter = newCounter;
   thumbs[newCounter].classList.replace('not-active', 'active');
   changeCentralImage();
+}
+
+function autoplay(){
+  cicle = setInterval(function(){
+    slide('right')
+  }, timeAutoplay);
 }
