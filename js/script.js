@@ -27,6 +27,7 @@ const carouselTop = document.querySelector('.carousel-top');
 const carouselBottom = document.querySelector('.carousel-bottom');
 const timeAutoplay = 2000;
 let counter = 1;
+let direction = 'right'
 let newCounter;
 let cicle;
 
@@ -46,7 +47,6 @@ const imageDescription = (index) => {
 }
 
 loadPage();
-autoplay();
 
 document.getElementById('btn-left').addEventListener('click', function(){
   slide('left');
@@ -54,10 +54,26 @@ document.getElementById('btn-left').addEventListener('click', function(){
 document.getElementById('btn-right').addEventListener('click', function(){
   slide('right');
 });
+document.getElementById('inverse').addEventListener('click', function(){
+  clearInterval(cicle);
+  (direction === 'right') ? direction = 'left' : direction = 'right';
+  autoplay(direction);
+});
+document.getElementById('stop').addEventListener('click', function(){
+  clearInterval(cicle);
+});
+document.getElementById('play').addEventListener('click', function(){
+  clearInterval(cicle); //protect against clicking play while already running
+  autoplay(direction);
+});
+document.getElementById('random').addEventListener('click', function(){
+  slide('right');
+});
 
 function loadPage(){
   changeCentralImage();
   states.forEach(createSlider);
+  autoplay(direction);
 }
 
 function changeCentralImage(){
@@ -94,8 +110,8 @@ function changeImage(newCounter){
   changeCentralImage();
 }
 
-function autoplay(){
+function autoplay(direction){
   cicle = setInterval(function(){
-    slide('right')
+    slide(direction)
   }, timeAutoplay);
 }

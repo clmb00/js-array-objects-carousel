@@ -13,7 +13,8 @@ body{
   max-width: 1200px;
   margin: 50px auto;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   border: 1px solid red;
 }
 
@@ -72,7 +73,7 @@ img.active{
   border: 3px solid rgba(255, 255, 255);
 }
 
-button{
+button.direction{
   position: absolute;
   z-index: 1;
   top: calc(50% - 20px);
@@ -87,11 +88,11 @@ button{
   background-color: rgba(255, 255, 255, .6);
 }
 
-button:hover{
+button.direction:hover{
   background-color: rgba(255, 255, 255, .7);
 }
 
-button:active{
+button.direction:active{
   background-color: rgba(255, 255, 255, 1);
 }
 
@@ -101,4 +102,32 @@ button#btn-right{
 
 button#btn-left{
   left: 0;
+}
+
+.utility{
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+button.utility{
+  cursor: pointer;
+  margin: 10px 0px;
+  padding: 16px 2px;
+  background-color: rgba(75, 115, 190, .6);
+  border-radius: 50px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 0px 5px black;
+}
+
+button.utility:hover{
+  background-color: rgba(75, 115, 190, .7);
+}
+
+button.utility:active{
+  background-color: rgba(75, 115, 190, 1);
 }
